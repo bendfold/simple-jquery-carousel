@@ -51,7 +51,33 @@
 		},
 		// START - CARO SET UP
 		intialiseMarkup : function () {
-
+			// Set panel width
+			this.setPanelWidth();
+			// Set caro inner width to be total sum of panels widths
+			this.setSliderWidth();
+			// Wrap the slider elem in a restricted viewport 
+			this.wrapInViewport();
+		},
+		calcSliderWidth : function () {
+			return ( this.numbers.panelsLength * this.numbers.caroWrapWidth )
+		},
+		setPanelWidth : function(){
+			for ( var i = 0; i < this.numbers.panelsLength; i += 1 ) {
+				this.elems.$panels[i].style.width = ( this.numbers.caroWrapWidth + 'px' );
+			}
+			return true;
+		},
+		setSliderWidth : function () {
+			this.elems.$caroSlider[0].style.width = ( this.calcSliderWidth() + 'px' );
+		},
+		wrapInViewport : function () {
+			var $caroSlider = this.elems.$caroSlider,
+				viewport = document.createElement( 'div' );
+			
+			viewport.style.width = ( this.numbers.caroWrapWidth + 'px' );
+			// TODO - lift class name out to config, selector stripper
+			viewport.classList.add('viewport');
+			$caroSlider.wrap( viewport );
 		},
 		// END - CARO SET UP
 		//
