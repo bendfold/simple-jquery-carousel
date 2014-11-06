@@ -1,0 +1,92 @@
+.clearfix:after {
+	content: '';
+	display: block;
+	height: 0;
+	width: 0;
+	line-height: 0;
+	font-size: 0;
+	clear: both;
+}
+
+html {
+	box-sizing: border-box;
+}
+*, :after, :before {
+	box-sizing: inherit;
+}
+
+body {
+	background-color: black
+}
+
+.wrapper{
+	margin: 0 auto;
+	padding: 0;
+	width: 960px;
+}
+.caro-wrap {
+	width: 100%;
+	/*overflow: hidden;*/
+	border: 1px solid purple;
+	background-color: grey;
+	position: relative;
+}
+.caro-wrap .viewport {
+	overflow: hidden;
+	background-color: magenta;
+}
+.caro-wrap ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.toolbar {
+	background-color: black;
+}
+.next-prev-ctrls .trigger {
+	color: white;
+	font-size: 40px;
+	text-decoration: none;
+}
+.next-prev-ctrls .item {
+	position: absolute;
+	top: 50%;
+}
+.next-prev-ctrls .item-prev {
+	left: -4%;
+}
+.next-prev-ctrls .item-next {
+	right: -4%;
+}
+.next-prev-ctrls .item .inactive {
+	color: #333;
+}
+.panel {
+	float: left;
+}
+.profile-item {
+	width: 16.6665%;
+	float: left;
+}
+
+.caro-wrap .thumbnail-nav {
+	text-align: center;
+	padding: 20px 0;
+}
+
+.thumbnail-nav .thumb-link {
+	display: inline-block;
+	margin: 0 20px;
+}
+
+.thumbnail-nav .link {
+	height: 20px;
+	width: 20px;
+	border-radius: 100%;
+	background-color: teal;
+	display: block;
+}
+
+.thumbnail-nav .active .link {
+	border: 2px solid white;
+}
