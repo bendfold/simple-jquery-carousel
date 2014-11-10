@@ -71,7 +71,7 @@
 					var newKey = '';
 					if ( this.config.SELECTOR_IN_STRING_REGEX.test( item ) ) {
 						// newKey = /^[Selector]+/.replace( item, 'Class' );
-						console.log( 'newKey ', /[Selector]/.replace( item, 'Class' ) );
+						console.log( 'newKey ', item.replace( /Selector/, 'Class' ) );
 					}
 
 				}
