@@ -10,7 +10,17 @@
 			"scrollSpeed" : 600,
 			"vendorPrefixes" : this.setVendorPrefix(),
 			"panelSelector" : ".panel",
-			"caroSliderSelector" : ".profile-list"
+			"caroSliderSelector" : ".profile-list",
+			"nextPrevCtrlsSelector" : ".next-prev-ctrls",
+			"listItemSelector" : ".item",
+			"triggerSelector" : ".trigger",
+			"thumbnailSelector" : ".thumbnail-nav",
+			"thumbLinkSelector" : ".thumb-link",
+			"activeStateSelector" : ".active",
+			"inactiveStateSelector" : ".inactive",
+			// CONSTANTS
+			"SELECTOR_STRIP_REGEX" : /^[\.|#]?/,
+			"SELECTOR_IN_STRING_REGEX" : /[A-Za-z_-]+Selector/
 		},
 		// Merge default settings with user specified options
 		config = $.extend({}, defaults, opts),
@@ -44,12 +54,29 @@
 	var methods = {
 		// START - CARO SET UP
 		init : function(){
+			// Lift out the selectors from the config and make them classes that we can apply to markup
+			this.createClassNameObject();
 			// Set up markup
 			this.intialiseMarkup();
 			// Bind events
 			this.bindEvents();
 		},
-		// START - CARO SET UP
+		createClassNameObject : function() {
+			console.log('message ', this.config);
+			var classNames = {};
+			for ( var item in this.config ) {
+				if ( this.config.hasOwnProperty( item ) ) {
+					// Test the key to see if it has the suffix selector
+					console.log( 'item ', item, ' ',typeof item, ' ', this.config.SELECTOR_IN_STRING_REGEX.test( item ) );
+					var newKey = '';
+					if ( this.config.SELECTOR_IN_STRING_REGEX.test( item ) ) {
+						// newKey = /^[Selector]+/.replace( item, 'Class' );
+						console.log( 'newKey ', /[Selector]/.replace( item, 'Class' ) );
+					}
+
+				}
+			}
+		},
 		intialiseMarkup : function () {
 			// Set panel width
 			this.setPanelWidth();
@@ -57,6 +84,10 @@
 			this.setSliderWidth();
 			// Wrap the slider elem in a restricted viewport 
 			this.wrapInViewport();
+			// Set up thumbnails & next/prev controls
+			this.generateControls();
+			// Add the controls to the DOM 
+			// this.addCtrlsToDom();
 		},
 		calcSliderWidth : function () {
 			return ( this.numbers.panelsLength * this.numbers.caroWrapWidth )
@@ -78,6 +109,32 @@
 			// TODO - lift class name out to config, selector stripper
 			viewport.classList.add('viewport');
 			$caroSlider.wrap( viewport );
+		},
+		generateControls : function () {
+			var elems = this.elems,
+				config = this.config;
+			// Generate the controls
+			elems.$nextPrevCtrls = this.buildNextPrevCtrl();
+			elems.$thumbnailNav = this.buildThumbnailNav();
+		},
+		buildNextPrevCtrl : function () {
+			var nextPrevCtrls = '<ul class="next-prev-ctrls">',
+				nextPrevContent = [{"selector":"prev", "marker" : "&lt;"}, {"selector":"next", "marker" : "&gt;"}];
+				// Make our pagination ctrls and add them to the list.
+			for ( var i = 0; i < nextPrevContent.length; i += 1 ) {
+				var thisItem = nextPrevContent[i];
+				var li = '<li class="item item-' + thisItem.selector + '"><a href="#" class="trigger trigger-' + thisItem.selector + '">' + thisItem.marker + '</a></li>'
+				nextPrevCtrls += li;
+			}
+			return $(nextPrevCtrls += '</ul>');
+		},
+		buildThumbnailNav : function () {
+			var thumbNav = '<ul class="thumbnail-nav">';
+			for ( var i = 0; i < this.numbers.panelsLength; i += 1 ) {
+				thumbNav += '<li class="item" data-index="' + i + '"><a class="trigger" href="#"></a></li>'
+			}
+			thumbNav += '</ul>';
+			return $(thumbNav);
 		},
 		// END - CARO SET UP
 		//
