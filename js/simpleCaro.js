@@ -20,7 +20,10 @@
 			"inactiveStateSelector" : ".inactive",
 			// CONSTANTS
 			"SELECTOR_STRIP_REGEX" : /^[\.|#]?/,
-			"SELECTOR_IN_STRING_REGEX" : /[A-Za-z_-]+Selector/
+			"SELECTOR_IN_STRING_REGEX" : /[A-Za-z_-]+Selector/,
+			"SELECTOR_STRING_REGEX" : /Selector/,
+			// CONTENT
+			"nextPrevContent" : [{"selector":"prev", "marker" : "&lt;"}, {"selector":"next", "marker" : "&gt;"}]
 		},
 		// Merge default settings with user specified options
 		config = $.extend({}, defaults, opts),
@@ -62,20 +65,26 @@
 			this.bindEvents();
 		},
 		createClassNameObject : function() {
-			console.log('message ', this.config);
 			var classNames = {};
 			for ( var item in this.config ) {
 				if ( this.config.hasOwnProperty( item ) ) {
+					var newKey = '',
+						newValue = '',
+						currentKey = item,
+						currentValue = this.config[item];
 					// Test the key to see if it has the suffix selector
-					console.log( 'item ', item, ' ',typeof item, ' ', this.config.SELECTOR_IN_STRING_REGEX.test( item ) );
-					var newKey = '';
-					if ( this.config.SELECTOR_IN_STRING_REGEX.test( item ) ) {
-						// newKey = /^[Selector]+/.replace( item, 'Class' );
-						console.log( 'newKey ', item.replace( /Selector/, 'Class' ) );
+					if ( this.config.SELECTOR_IN_STRING_REGEX.test( currentKey ) ) {
+						// Replace the word Selector with Class in the key
+						newKey = currentKey.replace( this.config.SELECTOR_STRING_REGEX, '' );
+						// Strip out the selector type from the class name
+						newValue = currentValue.replace( this.config.SELECTOR_STRIP_REGEX, '' );
+						// Assign new values to our class name object
+						classNames[newKey] = newValue;
 					}
-
 				}
 			}
+			console.log( 'classNames ', classNames );
+			this.classNames = classNames;
 		},
 		intialiseMarkup : function () {
 			// Set panel width
@@ -118,14 +127,17 @@
 			elems.$thumbnailNav = this.buildThumbnailNav();
 		},
 		buildNextPrevCtrl : function () {
-			var nextPrevCtrls = '<ul class="next-prev-ctrls">',
-				nextPrevContent = [{"selector":"prev", "marker" : "&lt;"}, {"selector":"next", "marker" : "&gt;"}];
+			console.log( 'buildNextPrevCtrl ', this.classNames  );
+			var classNames = this.classNames,
+				nextPrevCtrls = '<ul class="' + classNames.nextPrevCtrls + '">',
+				nextPrevContent = this.config.nextPrevContent;
 				// Make our pagination ctrls and add them to the list.
 			for ( var i = 0; i < nextPrevContent.length; i += 1 ) {
 				var thisItem = nextPrevContent[i];
-				var li = '<li class="item item-' + thisItem.selector + '"><a href="#" class="trigger trigger-' + thisItem.selector + '">' + thisItem.marker + '</a></li>'
+				var li = '<li class="' + classNames.listItem + ' ' + classNames.listItem + '-' + thisItem.selector + '"><a href="#" class="' + classNames.trigger + ' ' + classNames.trigger + '-' + thisItem.selector + '">' + thisItem.marker + '</a></li>';
 				nextPrevCtrls += li;
 			}
+			console.log('nextPrevCtrls ', nextPrevCtrls);
 			return $(nextPrevCtrls += '</ul>');
 		},
 		buildThumbnailNav : function () {
