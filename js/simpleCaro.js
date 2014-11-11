@@ -13,6 +13,8 @@
 			"panelSelector" : ".panel",
 			"caroSliderSelector" : ".profile-list",
 			"nextPrevCtrlsSelector" : ".next-prev-ctrls",
+			"nextTriggerSelector" : ".item-next",
+			"prevTriggerSelector" : ".item-prev",
 			"listItemSelector" : ".item",
 			"triggerSelector" : ".trigger",
 			"thumbnailNavSelector" : ".thumbnail-nav",
@@ -62,7 +64,7 @@
 			this.createClassNameObject();
 			// Set up markup
 			this.intialiseMarkup();
-			// Bind events
+			// Bind our events to the triggers
 			this.bindEvents();
 		},
 		createClassNameObject : function() {
@@ -97,6 +99,9 @@
 			this.generateControls();
 			// Add the controls to the DOM 
 			this.addCtrlsToDom();
+			// Cache our triggers for the event binding to pickup on
+			this.cacheTriggers();
+			return;
 		},
 		calcSliderWidth : function () {
 			return ( this.numbers.panelsLength * this.numbers.caroWrapWidth )
@@ -148,32 +153,110 @@
 		},
 		addCtrlsToDom : function () {
 			var $ctrls = this.elems.$thumbnailNav.add( this.elems.$nextPrevCtrls );
-			
-			console.log( 'this.elems.$thumbnailNav ', $ctrls );
-
 			this.elems.$el.append( $ctrls );
+		},
+		cacheTriggers : function () {
+			var elems = this.elems;
+			elems.$prevTrigger = elems.$nextPrevCtrls.find( this.config.prevTriggerSelector );
+			elems.$nextTrigger = elems.$nextPrevCtrls.find( this.config.nextTriggerSelector );
+			elems.$thumbnailCollection = elems.$thumbnailNav.find( this.config.triggerSelector );
 		},
 		// END - CARO SET UP
 		//
+		// START - CARO MOVEMENT
+		showPrevItem : function () {
+			console.log( 'showPrevItem fired' );
+			var currentIndex = parseInt( this.numbers.currentIndex );
+			this.getDestination( currentIndex -= 1 );
+			this.moveCaro();
+		},
+		showNextItem : function () {
+			console.log( 'showNextItem fired' );
+			var currentIndex = parseInt( this.numbers.currentIndex );
+			this.getDestination( currentIndex += 1 );
+			this.moveCaro();
+		},
+		onThumbClick : function ( evnt ) {
+			var targetIndex = $(evnt.currentTarget).data( 'index' );
+			this.getDestination( targetIndex );
+			this.moveCaro();
+		},
+		getDestination : function ( locCalc ) {
+			var itemsInCaro = ( this.numbers.panelsLength - 1 );
+			var	destination = ( locCalc <= itemsInCaro ) && ( locCalc > -1 ) ? locCalc : this.numbers.currentIndex;
+			return this.numbers.destination = destination;
+		},
+		moveCaro : function () {
+			this.numbers.prevIndex = this.numbers.currentIndex;
+			this.numbers.currentIndex = this.numbers.destination;
+			this.cssTransformPosition();
+			this.handleActiveState();
+		},
+		handleActiveState : function () {
+			this.handlePaginationState();
+			this.handleThumbNavState();
+		},
+		handlePaginationState : function () {
+			if ( this.numbers.prevIndex === this.numbers.currentIndex ) {
+				return false;
+			}
+			var atTheStart = ( this.numbers.currentIndex === 0 ),
+				atTheEnd = ( this.numbers.currentIndex === ( this.numbers.panelsLength - 1 ) ),
+				prevIndexWasStart = ( this.numbers.prevIndex === 0 ),
+				prevIndexWasEnd = ( this.numbers.prevIndex === ( this.numbers.panelsLength - 1 ) );
+			
+			if ( atTheStart ) {
+				if ( this.elems.$nextTrigger.hasClass( 'inactive' ) ) {
+					this.elems.$nextTrigger.removeClass( 'inactive' );
+				}
+				this.elems.$prevTrigger.addClass( 'inactive' );
+			} else if ( atTheEnd ) {
+				if ( this.elems.$prevTrigger.hasClass( 'inactive' ) ) {
+					this.elems.$prevTrigger.removeClass( 'inactive' );
+				}
+				this.elems.$nextTrigger.addClass( 'inactive' );
+			} else {
+				if ( this.elems.$prevTrigger.hasClass( 'inactive' ) ) {
+					this.elems.$prevTrigger.removeClass( 'inactive' );
+				}
+				if ( this.elems.$nextTrigger.hasClass( 'inactive' ) ) {
+					this.elems.$nextTrigger.removeClass( 'inactive' );
+				}
+			}
+		},
+		handleThumbNavState : function () {
+			this.elems.$thumbnailCollection.removeClass('active');
+			$(this.elems.$thumbnailCollection[ this.numbers.currentIndex ]).addClass( 'active' );
+		},
+		cssTransformPosition : function () {
+			var vendorPrefixes = this.config.vendorPrefixes,
+			sliderElem = this.elems.$caroSlider[0],
+			itemWidth = this.numbers.caroWrapWidth,
+			scrollSpeed = this.config.scrollSpeed,
+			newXpos = (!this.config.vertical) ? (itemWidth * this.numbers.currentIndex) : 0,
+			newYpos = (this.config.vertical) ? (this.numbers.itemHeight * this.numbers.currentItem) : 0;
+			// Apply new styles to slider element
+			sliderElem.style[ vendorPrefixes.transitionAttributePrefix ] = vendorPrefixes.transformPrefix + ' ' + scrollSpeed + 'ms';
+			sliderElem.style[ vendorPrefixes.transformAttributePrefix ] = 'translate3d(' + '-' + newXpos + 'px, ' + '-' + newYpos + 'px,  0)';
+		},
+		// END - CARO MOVEMENT
+		//
 		// START - HELPERS
 		bindEvents : function () {
-			// var elems = this.elems;
-			// // Prev button event binding
-			// elems.$prevBtn.on( 'click', this._setupEventHandler( this.showPrevItem ) );
-			// // Next button event binding
-			// elems.$nextBtn.on( 'click', this._setupEventHandler( this.showNextItem ) );
-			// // Attach clicks to thumbnails
-			// for ( var i = 0; i < elems.$thumbnailCollection.length; i += 1 ) {
-			// 	$(elems.$thumbnailCollection[ i ]).on( 'click', this._setupEventHandler( this.onThumbClick ) );
-			// }
+			var elems = this.elems;
+			// Prev button event binding
+			elems.$prevTrigger.on( 'click', this._setupEventHandler( this.showPrevItem ) );
+			// Next button event binding
+			elems.$nextTrigger.on( 'click', this._setupEventHandler( this.showNextItem ) );
+			// Attach clicks to thumbnails
+			for ( var i = 0; i < elems.$thumbnailCollection.length; i += 1 ) {
+				$(elems.$thumbnailCollection[ i ]).on( 'click', this._setupEventHandler( this.onThumbClick ) );
+			}
 		},
 		_setupEventHandler : function(method){
 			var that = this;
 			return function( evt ){
 				evt.preventDefault();
-				if ( that.config.autoScroll === true ) {
-					that.autoScrollStop();
-				}
 				return method.call(that, evt);
 			};
 		},
