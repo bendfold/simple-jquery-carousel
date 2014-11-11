@@ -9,12 +9,13 @@
 		var defaults = {
 			"scrollSpeed" : 600,
 			"vendorPrefixes" : this.setVendorPrefix(),
+			"viewportSelector" : ".viewport",
 			"panelSelector" : ".panel",
 			"caroSliderSelector" : ".profile-list",
 			"nextPrevCtrlsSelector" : ".next-prev-ctrls",
 			"listItemSelector" : ".item",
 			"triggerSelector" : ".trigger",
-			"thumbnailSelector" : ".thumbnail-nav",
+			"thumbnailNavSelector" : ".thumbnail-nav",
 			"thumbLinkSelector" : ".thumb-link",
 			"activeStateSelector" : ".active",
 			"inactiveStateSelector" : ".inactive",
@@ -83,7 +84,6 @@
 					}
 				}
 			}
-			console.log( 'classNames ', classNames );
 			this.classNames = classNames;
 		},
 		intialiseMarkup : function () {
@@ -96,7 +96,7 @@
 			// Set up thumbnails & next/prev controls
 			this.generateControls();
 			// Add the controls to the DOM 
-			// this.addCtrlsToDom();
+			this.addCtrlsToDom();
 		},
 		calcSliderWidth : function () {
 			return ( this.numbers.panelsLength * this.numbers.caroWrapWidth )
@@ -115,8 +115,7 @@
 				viewport = document.createElement( 'div' );
 			
 			viewport.style.width = ( this.numbers.caroWrapWidth + 'px' );
-			// TODO - lift class name out to config, selector stripper
-			viewport.classList.add('viewport');
+			viewport.classList.add( this.classNames.viewport );
 			$caroSlider.wrap( viewport );
 		},
 		generateControls : function () {
@@ -127,7 +126,6 @@
 			elems.$thumbnailNav = this.buildThumbnailNav();
 		},
 		buildNextPrevCtrl : function () {
-			console.log( 'buildNextPrevCtrl ', this.classNames  );
 			var classNames = this.classNames,
 				nextPrevCtrls = '<ul class="' + classNames.nextPrevCtrls + '">',
 				nextPrevContent = this.config.nextPrevContent;
@@ -137,16 +135,23 @@
 				var li = '<li class="' + classNames.listItem + ' ' + classNames.listItem + '-' + thisItem.selector + '"><a href="#" class="' + classNames.trigger + ' ' + classNames.trigger + '-' + thisItem.selector + '">' + thisItem.marker + '</a></li>';
 				nextPrevCtrls += li;
 			}
-			console.log('nextPrevCtrls ', nextPrevCtrls);
 			return $(nextPrevCtrls += '</ul>');
 		},
 		buildThumbnailNav : function () {
-			var thumbNav = '<ul class="thumbnail-nav">';
+			var classNames = this.classNames,
+			thumbNav = '<ul class="' + classNames.thumbnailNav + '">';
 			for ( var i = 0; i < this.numbers.panelsLength; i += 1 ) {
-				thumbNav += '<li class="item" data-index="' + i + '"><a class="trigger" href="#"></a></li>'
+				thumbNav += '<li class="' + classNames.listItem + '" data-index="' + i + '"><a class="' + classNames.trigger + '" href="#"></a></li>'
 			}
 			thumbNav += '</ul>';
 			return $(thumbNav);
+		},
+		addCtrlsToDom : function () {
+			var $ctrls = this.elems.$thumbnailNav.add( this.elems.$nextPrevCtrls );
+			
+			console.log( 'this.elems.$thumbnailNav ', $ctrls );
+
+			this.elems.$el.append( $ctrls );
 		},
 		// END - CARO SET UP
 		//

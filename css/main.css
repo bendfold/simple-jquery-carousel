@@ -68,25 +68,21 @@ body {
 	width: 16.6665%;
 	float: left;
 }
-
 .caro-wrap .thumbnail-nav {
 	text-align: center;
 	padding: 20px 0;
 }
-
-.thumbnail-nav .thumb-link {
+.thumbnail-nav .item {
 	display: inline-block;
 	margin: 0 20px;
 }
-
-.thumbnail-nav .link {
+.thumbnail-nav .trigger {
 	height: 20px;
 	width: 20px;
 	border-radius: 100%;
 	background-color: teal;
 	display: block;
 }
-
-.thumbnail-nav .active .link {
+.thumbnail-nav .active .trigger {
 	border: 2px solid white;
 }
