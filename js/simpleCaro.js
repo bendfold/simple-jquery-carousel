@@ -66,6 +66,8 @@
 			this.intialiseMarkup();
 			// Bind our events to the triggers
 			this.bindEvents();
+			// Handle active stae
+			this.handleActiveState();
 		},
 		createClassNameObject : function() {
 			var classNames = {};
@@ -165,13 +167,17 @@
 		//
 		// START - CARO MOVEMENT
 		showPrevItem : function () {
-			console.log( 'showPrevItem fired' );
+			
+			// console.log( 'showPrevItem fired' );
+			
 			var currentIndex = parseInt( this.numbers.currentIndex );
 			this.getDestination( currentIndex -= 1 );
 			this.moveCaro();
 		},
 		showNextItem : function () {
-			console.log( 'showNextItem fired' );
+			
+			// console.log( 'showNextItem fired' );
+
 			var currentIndex = parseInt( this.numbers.currentIndex );
 			this.getDestination( currentIndex += 1 );
 			this.moveCaro();
@@ -206,27 +212,27 @@
 				prevIndexWasEnd = ( this.numbers.prevIndex === ( this.numbers.panelsLength - 1 ) );
 			
 			if ( atTheStart ) {
-				if ( this.elems.$nextTrigger.hasClass( 'inactive' ) ) {
-					this.elems.$nextTrigger.removeClass( 'inactive' );
+				if ( this.elems.$nextTrigger.hasClass( this.classNames.inactiveState ) ) {
+					this.elems.$nextTrigger.removeClass( this.classNames.inactiveState );
 				}
-				this.elems.$prevTrigger.addClass( 'inactive' );
+				this.elems.$prevTrigger.addClass( this.classNames.inactiveState );
 			} else if ( atTheEnd ) {
-				if ( this.elems.$prevTrigger.hasClass( 'inactive' ) ) {
-					this.elems.$prevTrigger.removeClass( 'inactive' );
+				if ( this.elems.$prevTrigger.hasClass( this.classNames.inactiveState ) ) {
+					this.elems.$prevTrigger.removeClass( this.classNames.inactiveState );
 				}
-				this.elems.$nextTrigger.addClass( 'inactive' );
+				this.elems.$nextTrigger.addClass( this.classNames.inactiveState );
 			} else {
-				if ( this.elems.$prevTrigger.hasClass( 'inactive' ) ) {
-					this.elems.$prevTrigger.removeClass( 'inactive' );
+				if ( this.elems.$prevTrigger.hasClass( this.classNames.inactiveState ) ) {
+					this.elems.$prevTrigger.removeClass( this.classNames.inactiveState );
 				}
-				if ( this.elems.$nextTrigger.hasClass( 'inactive' ) ) {
-					this.elems.$nextTrigger.removeClass( 'inactive' );
+				if ( this.elems.$nextTrigger.hasClass( this.classNames.inactiveState ) ) {
+					this.elems.$nextTrigger.removeClass( this.classNames.inactiveState );
 				}
 			}
 		},
 		handleThumbNavState : function () {
-			this.elems.$thumbnailCollection.removeClass('active');
-			$(this.elems.$thumbnailCollection[ this.numbers.currentIndex ]).addClass( 'active' );
+			this.elems.$thumbnailCollection.removeClass( this.classNames.activeState );
+			$(this.elems.$thumbnailCollection[ this.numbers.currentIndex ]).addClass( this.classNames.activeState );
 		},
 		cssTransformPosition : function () {
 			var vendorPrefixes = this.config.vendorPrefixes,
