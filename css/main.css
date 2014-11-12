@@ -73,9 +73,9 @@ body {
 	height: 20px;
 	width: 20px;
 	border-radius: 100%;
-	background-color: teal;
+	background-color: #aaa;
 	display: block;
 }
 .thumbnail-nav .trigger.active {
-	border: 2px solid black;
+	border: 2px solid #333;
 }
