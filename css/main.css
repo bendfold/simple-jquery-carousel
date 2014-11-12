@@ -58,7 +58,7 @@ body {
 .next-prev-ctrls .item-next {
 	right: -4%;
 }
-.next-prev-ctrls .item .inactive {
+.next-prev-ctrls .inactive .trigger {
 	color: #333;
 }
 .panel {
@@ -83,6 +83,6 @@ body {
 	background-color: teal;
 	display: block;
 }
-.thumbnail-nav .active .trigger {
+.thumbnail-nav .trigger.active {
 	border: 2px solid white;
 }
