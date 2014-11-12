@@ -77,5 +77,5 @@ body {
 	display: block;
 }
 .thumbnail-nav .trigger.active {
-	border: 2px solid white;
+	border: 2px solid black;
 }

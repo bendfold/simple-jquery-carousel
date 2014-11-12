@@ -148,7 +148,7 @@
 			var classNames = this.classNames,
 			thumbNav = '<ul class="' + classNames.thumbnailNav + '">';
 			for ( var i = 0; i < this.numbers.panelsLength; i += 1 ) {
-				thumbNav += '<li class="' + classNames.listItem + '" data-index="' + i + '"><a class="' + classNames.trigger + '" href="#"></a></li>'
+				thumbNav += '<li class="' + classNames.listItem + '"><a class="' + classNames.trigger + '" href="#" data-index="' + i + '"></a></li>'
 			}
 			thumbNav += '</ul>';
 			return $(thumbNav);
@@ -183,7 +183,13 @@
 			this.moveCaro();
 		},
 		onThumbClick : function ( evnt ) {
+
+			
+			
 			var targetIndex = $(evnt.currentTarget).data( 'index' );
+
+			console.log( 'onThumbClick fired targetIndex ', targetIndex );
+
 			this.getDestination( targetIndex );
 			this.moveCaro();
 		},
