@@ -16,7 +16,7 @@ html {
 }
 
 body {
-	background-color: black
+	background-color: white
 }
 
 .wrapper{
@@ -26,25 +26,18 @@ body {
 }
 .caro-wrap {
 	width: 100%;
-	/*overflow: hidden;*/
-	border: 1px solid purple;
-	background-color: grey;
 	position: relative;
 }
 .caro-wrap .viewport {
 	overflow: hidden;
-	background-color: magenta;
 }
 .caro-wrap ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
-.toolbar {
-	background-color: black;
-}
 .next-prev-ctrls .trigger {
-	color: white;
+	color: #333;
 	font-size: 40px;
 	text-decoration: none;
 }
@@ -59,7 +52,7 @@ body {
 	right: -4%;
 }
 .next-prev-ctrls .inactive .trigger {
-	color: #333;
+	opacity: 0.3;
 }
 .panel {
 	float: left;
