@@ -122,7 +122,8 @@
 				viewport = document.createElement( 'div' );
 			
 			viewport.style.width = ( this.numbers.caroWrapWidth + 'px' );
-			viewport.classList.add( this.classNames.viewport );
+			// viewport.classList.add( this.classNames.viewport );
+			$(viewport).addClass( this.classNames.viewport );
 			$caroSlider.wrap( viewport );
 		},
 		generateControls : function () {
