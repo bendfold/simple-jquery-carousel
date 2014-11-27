@@ -122,7 +122,6 @@
 				viewport = document.createElement( 'div' );
 			
 			viewport.style.width = ( this.numbers.caroWrapWidth + 'px' );
-			// viewport.classList.add( this.classNames.viewport );
 			$(viewport).addClass( this.classNames.viewport );
 			$caroSlider.wrap( viewport );
 		},
@@ -137,7 +136,8 @@
 			var classNames = this.classNames,
 				nextPrevCtrls = '<ul class="' + classNames.nextPrevCtrls + '">',
 				nextPrevContent = this.config.nextPrevContent;
-				// Make our pagination ctrls and add them to the list.
+			
+			// Make our pagination ctrls and add them to the list.
 			for ( var i = 0; i < nextPrevContent.length; i += 1 ) {
 				var thisItem = nextPrevContent[i];
 				var li = '<li class="' + classNames.listItem + ' ' + classNames.listItem + '-' + thisItem.selector + '"><a href="#" class="' + classNames.trigger + ' ' + classNames.trigger + '-' + thisItem.selector + '">' + thisItem.marker + '</a></li>';
@@ -168,29 +168,17 @@
 		//
 		// START - CARO MOVEMENT
 		showPrevItem : function () {
-			
-			// console.log( 'showPrevItem fired' );
-			
 			var currentIndex = parseInt( this.numbers.currentIndex );
 			this.getDestination( currentIndex -= 1 );
 			this.moveCaro();
 		},
 		showNextItem : function () {
-			
-			// console.log( 'showNextItem fired' );
-
 			var currentIndex = parseInt( this.numbers.currentIndex );
 			this.getDestination( currentIndex += 1 );
 			this.moveCaro();
 		},
 		onThumbClick : function ( evnt ) {
-
-			
-			
 			var targetIndex = $(evnt.currentTarget).data( 'index' );
-
-			console.log( 'onThumbClick fired targetIndex ', targetIndex );
-
 			this.getDestination( targetIndex );
 			this.moveCaro();
 		},
