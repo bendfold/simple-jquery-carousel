@@ -1,79 +1,53 @@
+body
+	background-color white
 
-.clearfix:after {
-	content: '';
-	display: block;
-	height: 0;
-	width: 0;
-	line-height: 0;
-	font-size: 0;
-	clear: both;
-}
+.wrapper
+	margin 0 auto
+	padding 0
+	width 640px
 
-html {
-	box-sizing: border-box;
-}
-*, :after, :before {
-	box-sizing: inherit;
-}
+.caro-wrap
+	width 100%
+	position relative
+	.viewport
+		overflow hidden
+	ul
+		list-style-type none
+		margin 0
+		padding 0
+	.thumbnail-nav
+		text-align center
+		padding 20px 0
 
-body {
-	background-color: white
-}
+.next-prev-ctrls
+	.trigger
+		color $ctrlTrigger
+		font-size 40px
+		text-decoration none
+	.item
+		position absolute
+		top 37%
+	.item-prev
+		left $ctrlOffset
+	.item-next
+		right $ctrlOffset
+	.inactive
+		.trigger
+			opacity 0.3
 
-.wrapper{
-	margin: 0 auto;
-	padding: 0;
-	width: 640px;
-}
-.caro-wrap {
-	width: 100%;
-	position: relative;
-}
-.caro-wrap .viewport {
-	overflow: hidden;
-}
-.caro-wrap ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-.next-prev-ctrls .trigger {
-	color: #333;
-	font-size: 40px;
-	text-decoration: none;
-}
-.next-prev-ctrls .item {
-	position: absolute;
-	top: 37%;
-}
-.next-prev-ctrls .item-prev {
-	left $ctrlOffset
-}
-.next-prev-ctrls .item-next {
-	right $ctrlOffset
-}
-.next-prev-ctrls .inactive .trigger {
-	opacity: 0.3;
-}
-.panel {
-	float: left;
-}
-.caro-wrap .thumbnail-nav {
-	text-align: center;
-	padding: 20px 0;
-}
-.thumbnail-nav .item {
-	display: inline-block;
-	margin: 0 20px;
-}
-.thumbnail-nav .trigger {
-	height: 20px;
-	width: 20px;
-	border-radius: 100%;
-	background-color: #aaa;
-	display: block;
-}
-.thumbnail-nav .trigger.active {
-	border: 2px solid #333;
-}
+.panel
+	float left
+
+.thumbnail-nav
+	.item
+		display inline-block
+		margin 0 20px
+	.trigger
+		height 20px
+		width 20px
+		border-radius 100%
+		background-color $thumbNavTrigger
+		display block
+		&.active
+			border 2px solid $thumbNavActiveBorder
 

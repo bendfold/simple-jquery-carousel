@@ -5,7 +5,7 @@
 
 /* line 13 : /Users/owencowdry/development/simplecaro/node_modules/gulp-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 1 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/index.styl */
+/* line 50 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/index.styl */
 
 /* line 10 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/index.styl */
 
@@ -25,7 +25,7 @@
 
 /* line 90 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/flex.styl */
 
-/* line 1 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/gradients.styl */
+/* line 50 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/gradients.styl */
 
 /* line 11 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/gradients.styl */
 
@@ -53,7 +53,7 @@
 
 /* line 5 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/reset.styl */
 
-/* line 1 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/text/index.styl */
+/* line 50 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/text/index.styl */
 
 /* line 12 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/text/index.styl */
 
@@ -87,7 +87,7 @@
 
 /* line 1 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/size.styl */
 
-/* line 527 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/size.styl */
+/* line 548 : /Users/owencowdry/development/simplecaro/node_modules/nib/lib/nib/size.styl */
 
 /* line 1 : /Users/owencowdry/development/simplecaro/src/stylus/core/normalize.styl */
 /* normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -194,51 +194,57 @@ button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
 textarea{overflow:auto;vertical-align:top;}
 /* line 524 : /Users/owencowdry/development/simplecaro/src/stylus/core/normalize.styl */
 table{border-collapse:collapse;border-spacing:0}
-/* line 527 : /Users/owencowdry/development/simplecaro/src/stylus/core/normalize.styl */
+/* line 533 : /Users/owencowdry/development/simplecaro/src/stylus/core/normalize.styl */
+.clearfix:after{content:'';display:block;height:0;width:0;line-height:0;font-size:0;clear:both}
+/* line 543 : /Users/owencowdry/development/simplecaro/src/stylus/core/normalize.styl */
+html{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+/* line 546 : /Users/owencowdry/development/simplecaro/src/stylus/core/normalize.styl */
+*,:after,:before{-webkit-box-sizing:inherit;-moz-box-sizing:inherit;box-sizing:inherit}
+/* line 3 : /Users/owencowdry/development/simplecaro/src/stylus/core/normalize.styl */
 
-/* line 527 : /Users/owencowdry/development/simplecaro/src/stylus/core/colours.styl */
+/* line 1 : /Users/owencowdry/development/simplecaro/src/stylus/core/colours.styl */
 
 /* line 1 : /Users/owencowdry/development/simplecaro/src/stylus/core/colours.styl */
 
 /* line 1 : /Users/owencowdry/development/simplecaro/src/stylus/core/spacing.styl */
 
-/* line 78 : /Users/owencowdry/development/simplecaro/src/stylus/core/spacing.styl */
+/* line 50 : /Users/owencowdry/development/simplecaro/src/stylus/core/spacing.styl */
+
+/* line 50 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
 
 /* line 1 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-
-/* line 2 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-.clearfix:after{content:'';display:block;height:0;width:0;line-height:0;font-size:0;clear:both}
-/* line 12 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-html{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
-/* line 15 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-*,:after,:before{-webkit-box-sizing:inherit;-moz-box-sizing:inherit;box-sizing:inherit}
-/* line 19 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
 body{background-color:#fff}
-/* line 23 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+/* line 4 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
 .wrapper{margin:0 auto;padding:0;width:640px}
-/* line 28 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-.caro-wrap{width:100%;position:relative}
-/* line 32 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+/* line 9 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+.caro-wrap{width:100%;position:relative;}
+/* line 12 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
 .caro-wrap .viewport{overflow:hidden}
-/* line 35 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+/* line 14 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
 .caro-wrap ul{list-style-type:none;margin:0;padding:0}
-/* line 40 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-.next-prev-ctrls .trigger{color:#333;font-size:40px;text-decoration:none}
-/* line 45 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-.next-prev-ctrls .item{position:absolute;top:37%}
-/* line 49 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-.next-prev-ctrls .item-prev{left:-40px}
-/* line 52 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-.next-prev-ctrls .item-next{right:-40px}
-/* line 55 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-.next-prev-ctrls .inactive .trigger{opacity:.3;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";filter:alpha(opacity=30)}
-/* line 58 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-.panel{float:left}
-/* line 61 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+/* line 18 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
 .caro-wrap .thumbnail-nav{text-align:center;padding:20px 0}
-/* line 65 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+/* line 22 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+
+/* line 23 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+.next-prev-ctrls .trigger{color:#333;font-size:40px;text-decoration:none}
+/* line 27 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+.next-prev-ctrls .item{position:absolute;top:37%}
+/* line 30 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+.next-prev-ctrls .item-prev{left:-40px}
+/* line 32 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+.next-prev-ctrls .item-next{right:-40px}
+/* line 34 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+
+/* line 35 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+.next-prev-ctrls .inactive .trigger{opacity:.3;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";filter:alpha(opacity=30)}
+/* line 38 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+.panel{float:left}
+/* line 41 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+
+/* line 42 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
 .thumbnail-nav .item{display:inline-block;margin:0 20px}
-/* line 69 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
-.thumbnail-nav .trigger{height:20px;width:20px;-webkit-border-radius:100%;border-radius:100%;background-color:#aaa;display:block}
-/* line 76 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+/* line 45 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
+.thumbnail-nav .trigger{height:20px;width:20px;-webkit-border-radius:100%;border-radius:100%;background-color:#aaa;display:block;}
+/* line 51 : /Users/owencowdry/development/simplecaro/src/stylus/components/carobase.styl */
 .thumbnail-nav .trigger.active{border:2px solid #333}
