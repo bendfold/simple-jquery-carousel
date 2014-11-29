@@ -11,7 +11,7 @@
 			"vendorPrefixes" : this.setVendorPrefix(),
 			"viewportSelector" : ".viewport",
 			"panelSelector" : ".panel",
-			"caroSliderSelector" : ".profile-list",
+			"caroSliderSelector" : ".panel-list",
 			"nextPrevCtrlsSelector" : ".next-prev-ctrls",
 			"nextTriggerSelector" : ".item-next",
 			"prevTriggerSelector" : ".item-prev",
@@ -46,6 +46,8 @@
 			scrollSpeed : config.scrollSpeed,
 			caroWrapWidth : elems.$el.outerWidth(),
 			panelsLength : elems.$panels.length,
+			panelWidth : elems.$panels[0].offsetWidth,
+			panelHeight : elems.$panels[0].offsetHeight,
 			currentIndex : 0
 		};
 		// Make helper objects available to rest of the methods
@@ -91,8 +93,6 @@
 			this.classNames = classNames;
 		},
 		intialiseMarkup : function () {
-			// Set panel width
-			this.setPanelWidth();
 			// Set caro inner width to be total sum of panels widths
 			this.setSliderWidth();
 			// Wrap the slider elem in a restricted viewport 
@@ -106,13 +106,7 @@
 			return;
 		},
 		calcSliderWidth : function () {
-			return ( this.numbers.panelsLength * this.numbers.caroWrapWidth )
-		},
-		setPanelWidth : function(){
-			for ( var i = 0; i < this.numbers.panelsLength; i += 1 ) {
-				this.elems.$panels[i].style.width = ( this.numbers.caroWrapWidth + 'px' );
-			}
-			return true;
+			return ( this.numbers.panelsLength * this.numbers.panelWidth )
 		},
 		setSliderWidth : function () {
 			this.elems.$caroSlider[0].style.width = ( this.calcSliderWidth() + 'px' );
@@ -121,7 +115,8 @@
 			var $caroSlider = this.elems.$caroSlider,
 				viewport = document.createElement( 'div' );
 			
-			viewport.style.width = ( this.numbers.caroWrapWidth + 'px' );
+			viewport.style.width = ( this.numbers.panelWidth + 'px' );
+			viewport.style.height = ( this.numbers.panelHeight + 'px' );
 			$(viewport).addClass( this.classNames.viewport );
 			$caroSlider.wrap( viewport );
 		},
@@ -190,10 +185,26 @@
 		moveCaro : function () {
 			this.numbers.prevIndex = this.numbers.currentIndex;
 			this.numbers.currentIndex = this.numbers.destination;
-			this.cssTransformPosition();
-			this.handleActiveState();
+			// this.cssTransformPosition();
+
+			var sliderElem = this.elems.$caroSlider,
+				itemWidth = this.numbers.panelWidth,
+				scrollSpeed = this.config.scrollSpeed,
+				newXpos = (!this.config.vertical) ? (itemWidth * this.numbers.currentIndex) : 0;
+
+
+			sliderElem.animate({
+				left : -newXpos
+			}, scrollSpeed, this.handleActiveState.call( this ) );
+
+
+
+			// this.handleActiveState();
 		},
 		handleActiveState : function () {
+			
+			console.log( "this ", this );
+
 			this.handlePaginationState();
 			this.handleThumbNavState();
 		},
@@ -229,17 +240,17 @@
 			this.elems.$thumbnailCollection.removeClass( this.classNames.activeState );
 			$(this.elems.$thumbnailCollection[ this.numbers.currentIndex ]).addClass( this.classNames.activeState );
 		},
-		cssTransformPosition : function () {
-			var vendorPrefixes = this.config.vendorPrefixes,
-			sliderElem = this.elems.$caroSlider[0],
-			itemWidth = this.numbers.caroWrapWidth,
-			scrollSpeed = this.config.scrollSpeed,
-			newXpos = (!this.config.vertical) ? (itemWidth * this.numbers.currentIndex) : 0,
-			newYpos = (this.config.vertical) ? (this.numbers.itemHeight * this.numbers.currentItem) : 0;
-			// Apply new styles to slider element
-			sliderElem.style[ vendorPrefixes.transitionAttributePrefix ] = vendorPrefixes.transformPrefix + ' ' + scrollSpeed + 'ms';
-			sliderElem.style[ vendorPrefixes.transformAttributePrefix ] = 'translate3d(' + '-' + newXpos + 'px, ' + '-' + newYpos + 'px,  0)';
-		},
+		// cssTransformPosition : function () {
+		// 	var vendorPrefixes = this.config.vendorPrefixes,
+		// 	sliderElem = this.elems.$caroSlider[0],
+		// 	itemWidth = this.numbers.caroWrapWidth,
+		// 	scrollSpeed = this.config.scrollSpeed,
+		// 	newXpos = (!this.config.vertical) ? (itemWidth * this.numbers.currentIndex) : 0,
+		// 	newYpos = (this.config.vertical) ? (this.numbers.itemHeight * this.numbers.currentItem) : 0;
+		// 	// Apply new styles to slider element
+		// 	sliderElem.style[ vendorPrefixes.transitionAttributePrefix ] = vendorPrefixes.transformPrefix + ' ' + scrollSpeed + 'ms';
+		// 	sliderElem.style[ vendorPrefixes.transformAttributePrefix ] = 'translate3d(' + '-' + newXpos + 'px, ' + '-' + newYpos + 'px,  0)';
+		// },
 		// END - CARO MOVEMENT
 		//
 		// START - HELPERS
