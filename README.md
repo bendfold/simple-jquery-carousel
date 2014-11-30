@@ -10,7 +10,7 @@ This is just bare bones simple carousel that I have made to serve as a quick sta
 		
 - Include the following markup on your page:
 		
-		div.your-class-name#orId > ul.panel-list > li.panel
+		div.your-class-name#orId > ul.panel-list > li.panel*4
 		
 - Select your element from the DOM and kick off the plugin:
 	
@@ -19,7 +19,7 @@ This is just bare bones simple carousel that I have made to serve as a quick sta
 ## It assumes:
 - The following markup structure	
 
-		div.your-class-name#orId > ul.panel-list > li.panel
+		div.your-class-name#orId > ul.panel-list > li.panel*4
 
 	You can use whatever hook you like on the outter div, class name or ID, it doesn't matter. So long as you referrence it correctly once you fire off the plugin.
 	The class names on the ``ul`` & ``li`` are referenced in the JS, so you should keep these the same. If you want to change them you can do so in the defaults section at the top of the plugin.
