@@ -8,7 +8,6 @@
 		// Default setup
 		var defaults = {
 			"scrollSpeed" : 600,
-			"vendorPrefixes" : this.setVendorPrefix(),
 			"viewportSelector" : ".viewport",
 			"panelSelector" : ".panel",
 			"caroSliderSelector" : ".panel-list",
@@ -44,7 +43,6 @@
 		// Build up numbers object
 		numbers = {
 			scrollSpeed : config.scrollSpeed,
-			caroWrapWidth : elems.$el.outerWidth(),
 			panelsLength : elems.$panels.length,
 			panelWidth : elems.$panels[0].offsetWidth,
 			panelHeight : elems.$panels[0].offsetHeight,
@@ -131,7 +129,6 @@
 			var classNames = this.classNames,
 				nextPrevCtrls = '<ul class="' + classNames.nextPrevCtrls + '">',
 				nextPrevContent = this.config.nextPrevContent;
-			
 			// Make our pagination ctrls and add them to the list.
 			for ( var i = 0; i < nextPrevContent.length; i += 1 ) {
 				var thisItem = nextPrevContent[i];
@@ -183,28 +180,21 @@
 			return this.numbers.destination = destination;
 		},
 		moveCaro : function () {
-			this.numbers.prevIndex = this.numbers.currentIndex;
-			this.numbers.currentIndex = this.numbers.destination;
-			// this.cssTransformPosition();
-
 			var sliderElem = this.elems.$caroSlider,
 				itemWidth = this.numbers.panelWidth,
 				scrollSpeed = this.config.scrollSpeed,
-				newXpos = (!this.config.vertical) ? (itemWidth * this.numbers.currentIndex) : 0;
+				newXpos;
 
+			this.numbers.prevIndex = this.numbers.currentIndex;
+			this.numbers.currentIndex = this.numbers.destination;
 
+			newXpos = (!this.config.vertical) ? (itemWidth * this.numbers.currentIndex) : 0;
+			
 			sliderElem.animate({
 				left : -newXpos
 			}, scrollSpeed, this.handleActiveState.call( this ) );
-
-
-
-			// this.handleActiveState();
 		},
 		handleActiveState : function () {
-			
-			console.log( "this ", this );
-
 			this.handlePaginationState();
 			this.handleThumbNavState();
 		},
@@ -238,19 +228,8 @@
 		},
 		handleThumbNavState : function () {
 			this.elems.$thumbnailCollection.removeClass( this.classNames.activeState );
-			$(this.elems.$thumbnailCollection[ this.numbers.currentIndex ]).addClass( this.classNames.activeState );
+			$( this.elems.$thumbnailCollection[ this.numbers.currentIndex ] ).addClass( this.classNames.activeState );
 		},
-		// cssTransformPosition : function () {
-		// 	var vendorPrefixes = this.config.vendorPrefixes,
-		// 	sliderElem = this.elems.$caroSlider[0],
-		// 	itemWidth = this.numbers.caroWrapWidth,
-		// 	scrollSpeed = this.config.scrollSpeed,
-		// 	newXpos = (!this.config.vertical) ? (itemWidth * this.numbers.currentIndex) : 0,
-		// 	newYpos = (this.config.vertical) ? (this.numbers.itemHeight * this.numbers.currentItem) : 0;
-		// 	// Apply new styles to slider element
-		// 	sliderElem.style[ vendorPrefixes.transitionAttributePrefix ] = vendorPrefixes.transformPrefix + ' ' + scrollSpeed + 'ms';
-		// 	sliderElem.style[ vendorPrefixes.transformAttributePrefix ] = 'translate3d(' + '-' + newXpos + 'px, ' + '-' + newYpos + 'px,  0)';
-		// },
 		// END - CARO MOVEMENT
 		//
 		// START - HELPERS
@@ -271,31 +250,6 @@
 				evt.preventDefault();
 				return method.call(that, evt);
 			};
-		},
-		setVendorPrefix : function ( ) {
-			var vendorPrefixes = {
-					"transitionAttributePrefix" : ["transition", "msTransition", "MozTransition", "webkitTransition", "OTransition"],
-					"transformAttributePrefix" : ["transform", "msTransform", "MozTransform", "webkitTransform", "OTransform"],
-					"transformPrefix" : ["transform", "-ms-transform", "-moz-transform", "-webkit-transform", "-o-transform"]
-				};
-			for ( var item in vendorPrefixes ) {
-				if( vendorPrefixes.hasOwnProperty( item ) ){
-					var prefix = this.getVendorPrefix( vendorPrefixes[item] );
-					vendorPrefixes[item] = prefix;
-				}
-			}
-			return vendorPrefixes;
-		},
-		getVendorPrefix : function ( prefixCollection ) {
-			// Adapted from http://www.developerdrive.com/2012/03/coding-vendor-prefixes-with-javascript/
-			var tmp = document.createElement( "div" ),
-				result = "";
-			for ( var i = 0; i < prefixCollection.length; i+=1 ) {
-				if ( typeof tmp.style[ prefixCollection[i] ] !== 'undefined' ) {
-					result = prefixCollection[i];
-				}
-			}
-			return result;
 		}
 		// END - HELPERS
 	};
