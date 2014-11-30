@@ -1,6 +1,6 @@
 ;(function($){
 	'use strict';
-	function JqCaro(el,opts){
+	function SimpleCaro(el,opts){
 		if(!el.length){
 			return false;
 		}
@@ -264,19 +264,19 @@
 	}
 
 	// Add methods onto the OuiCaro class
-	addToProtype( JqCaro, methods );
+	addToProtype( SimpleCaro, methods );
 	// Create an instance of ouiCaro as a jQuery plugin
-	$.fn.jqCaro = function(opts){
+	$.fn.simpleCaro = function(opts){
 		return this.each(function(){
-			var config = opts ? opts : $(this).data('jqCaro');
-			this.jqCaro = new JqCaro($(this),config);
+			var config = opts ? opts : $(this).data('simpleCaro');
+			this.simpleCaro = new SimpleCaro($(this),config);
 		});
 	};
 })(jQuery);
 
 ;(function($){
 	$(document).ready(function(){
-		$('#JqCaro').jqCaro();
+		$('#SimpleCaro').simpleCaro();
 	});
 })(jQuery);
 
